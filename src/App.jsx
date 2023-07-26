@@ -8,9 +8,11 @@ function App() {
   return (
     <Container>
 <Switch>
-        <Route exact path='/login'>
+  
+        <Route exact path='/'>
             <Login />
         </Route>
+        
         <Route path='/register'>
           <Register />
         </Route>

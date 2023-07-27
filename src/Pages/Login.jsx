@@ -17,6 +17,8 @@ function Login() {
   <input type="password" placeholder='password' />
    <button>Login</button>
 </Form>
+<h5 style={{textAlign:'center'}}>Don't Have an account ?
+</h5>
 <p onClick={()=>history.push('/register')}>
     create a new account
 </p>
@@ -31,6 +33,9 @@ export default Login
 const Container = styled.div`
 width: 100%;   
 height: 100vh;
+font-family: 'Marcellus', serif;
+font-size: larger;
+color: whitesmoke;
 /* border: 2px solid black; */
 display: flex;
 justify-content: center;
@@ -96,7 +101,7 @@ justify-content: center;
 margin: 20px 0;
 border-radius: 10px;
 background-color: #252525;
-opacity: 80%;
+opacity: 85%;
 
 p{
     text-align: center;

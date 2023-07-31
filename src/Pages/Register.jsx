@@ -1,12 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import { styled } from "styled-components";
 import BrandLogo from "../assets/brandlogo.png";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
+import { useEffect } from "react";
+import Loading from "../components/Loading";
 
 function Register() {
+const[loading, setLoading]=useState(true);
+useEffect(() => {
+  setTimeout(() => setLoading(false), 1000)
+}, [])
+  const[values, setValues]=useState({
+    username: "",
+    password: "",
+    confirmpassword: ""
+
+  })
+
+  const{
+    username,password,confirmpassword
+  }=values
+  const handleChange = (name)=>(event)=>{
+const value = event.target.value;
+setValues({...values,[name]:value})
+console.log(value)
+
+  }
+
+  
+
+
+
   const history = useHistory();
   return (
-    <Container>
+    <>
+    {loading === false ? ( 
+      <Container>
       <ArcArea>
         <Logo>
           <img className="logo" src={BrandLogo} alt="Brand Logo" />
@@ -14,24 +43,36 @@ function Register() {
         <Form>
           <input
             type="email"
+            name="username"
+            value={username}
             placeholder="username"
+            onChange={handleChange("username")}
           />
           <input
             type="password"
+            name="password"
+            onChange={handleChange("password")}
+            value={password}
             placeholder="password"
           />
           <input
             type="password"
+            name="confirmpassword"
+            value={confirmpassword}
             placeholder="Confirm Password"
+            onChange={handleChange("confirmpassword")}
           />
-          <button><span style={{fontSize:'larger',fontWeight:'bold', color: '#252525'}}>Register</span></button>
+          <button type="submit"><span style={{fontSize:'larger',fontWeight:'bold', color: '#252525'}}>Register</span></button>
 <h5 style={{textAlign:'center'}}>          By continuing, you agree to TownBazzar's Conditions of Use and Privacy Notice.
 </h5>
         </Form>
         <h5 style={{ textAlign: "center" }}>Already Have an Account ?</h5>
         <p className="createnewaccount" onClick={() => history.push("/")}>Login</p>
       </ArcArea>
-    </Container>
+    </Container> ): (
+      <Loading />
+    )}
+   </>
   );
 }
 

@@ -7,29 +7,39 @@ import Card from '../components/Card'
 
 function Home() {
   return (
-    <Base>
-    <Banner />
-    <Division>Welcome to Town Bazzar     </Division>
+    <MainHome>
 
-    <Main>
+<Base>
 
-<Card />
-<Card />
-<Card />
-<Card />
-<Card />
-<Card />
-<Card />
-<Card />
-<Card />
-<Card />
-    </Main>
+<Banner />
+<Division>Welcome to Town Bazzar     </Division>
 
-    </Base>
+<Main>
+
+<SubMain><Card /></SubMain>
+<SubMain><Card /></SubMain>
+<SubMain><Card /></SubMain>
+<SubMain><Card /></SubMain>
+<SubMain><Card /></SubMain>
+<SubMain><Card /></SubMain>
+<SubMain><Card /></SubMain>
+<SubMain><Card /></SubMain>
+<SubMain><Card /></SubMain>
+<SubMain><Card /></SubMain>
+<SubMain><Card /></SubMain>
+
+</Main>
+
+</Base>
+    </MainHome>
+   
   )
 }
 
 export default Home
+const MainHome = styled.div`
+  width: 100%;
+`
 const Division = styled.div`
 position: relative;
 padding-top: 8cm;
@@ -50,17 +60,30 @@ position: relative;
 
   border: 2px solid black;
   margin: 1rem;
-  display: grid;
-  justify-content: center;
-  place-items: center;
-  grid-template-columns: repeat(auto-fill, minmax(295px, 1fr));
-  grid-gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  
   @media only screen and (max-width: 768px) {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    justify-content: start;
-  place-items: none;
+    position: relative;
 
+border: 2px solid black;
+margin: 1rem;
+justify-content: start;
+display: flex;
+flex-wrap: wrap;
+justify-content: space-evenly;
 }
 
+`
+const SubMain = styled.div`
+   flex-basis: calc(30% - 20px); /* Adjust the percentage and subtract any margin/padding between cards */
+  margin-bottom: 20px;
+    @media only screen and (max-width: 768px) {
+      flex-basis: calc(20% - 20px); /* Adjust the percentage and subtract any margin/padding between cards */
+
+ 
+
+}
 `
 

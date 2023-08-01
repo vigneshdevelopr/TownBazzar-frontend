@@ -1,17 +1,24 @@
+import { Button } from '@mui/material'
 import React from 'react'
 import { styled } from 'styled-components'
 
 function Card() {
+    const CardClickDemo = () =>{
+        alert('Hey Thanks for showing Intrest on my Product, Go to cart to checkout')
+    }
   return (
     <MainCard>
         <Image src='https://images.pexels.com/photos/5076516/pexels-photo-5076516.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2' />
         <Description>
         Powerful MediaTek Helio P35 Octa Core 2.3GHz with Android 12,One UI Core 4.1
-13MP+2MP Dual camera setup- True 13MP (F2.2) main camera + 2MP (F2.4) | 5MP (F2.2) front came
-16.55 centimeters (6.5-inch) LCD, HD+ resolution with 720 x 1600 pixels resolution, 269 PPI with 16M color
-5000mAH lithium-ion battery, 1 year manufacturer warranty for device and 6 months manufacturer warranty for in-box accessories including batteries from the date of purchase
+
         </Description>
-    <Main>Card</Main>
+        <Main>
+        <Button onClick={CardClickDemo} style={{display:'flex',fontWeight:'bold',backgroundColor:'#F7CA00',color:'#252525',width:'fit-content'}} variant='contained'>Buy</Button>
+        <Button onClick={CardClickDemo} style={{display:'flex',backgroundColor:'#ff0b0b',color:'#ffffff',fontWeight:'bold',width:'fit-content'}} variant='contained'>Add to Cart</Button>
+        </Main>
+   
+
 
     </MainCard>
   )
@@ -23,18 +30,38 @@ const MainCard = styled.div`
 border: 1px solid red;
 border-radius: 9px;
 
+display: flex;
+flex-direction: column;
+@media only screen and (max-width: 768px)  {
+   width: 10rem;
+margin-right: 10px;
+column-gap: 1cm; 
+}
+
+
 `
+
 const Image = styled.img`
 width: 100%;
 `
 const Description = styled.div`
-
+display: flex;
+flex-wrap: wrap;
+padding: 10px;
+font-size: large;
+color: black;
 `
 
 const Main = styled.div`
-margin:3cm ;
+
+display: flex;
+flex-direction: column;
+gap: 10px;
+padding: 10px;
+margin:0 auto ;
 @media only screen and (max-width: 768px) {
-margin: 0cm !important;
+display: flex;
+
 }
 
 `

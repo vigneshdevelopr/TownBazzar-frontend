@@ -157,7 +157,8 @@ export default function NavBar() {
   );
 
   return (
-    <Box sx={{ flexGrow: 1,width:'100%' }}>
+    <div >
+<Box sx={{ flexGrow: 1,width:'100%' }}>
       <AppBar sx={{bgcolor:'#131921'}} position="static">
         <Toolbar>
           <IconButton
@@ -231,5 +232,7 @@ export default function NavBar() {
       {renderMobileMenu}
       {renderMenu}
     </Box>
+    </div>
+    
   );
 }

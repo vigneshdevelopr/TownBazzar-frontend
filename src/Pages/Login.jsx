@@ -1,28 +1,99 @@
-import React from "react";
+import React, { useState } from "react";
 import { styled } from "styled-components";
 import BrandLogo from "../assets/brandlogo.png";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
-
+import { ToastContainer,toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function Login() {
+  const toastify = {
+    position: "bottom-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  };
+  const[values,setValues]=useState({
+    email:"",
+    password:""
+  })
+  const{
+    email,
+    password
+  }=values;
   const history = useHistory();
+//handleChange:
+const handleChange = (name)=>(event)=>{
+  const value = event.target.value;
+  setValues({...values, [name]:value})
+  // console.log(values);
+} 
+
+  const LoginUser = async() =>{
+    const newData = {
+email,
+password
+    }
+    try {
+      const response = await fetch("http://www.localhost:4000/signin",{
+        method:"POST",
+        body: JSON.stringify(newData),
+        headers:{
+          'content-type':'application/json'
+        }
+      })
+      const data = await response.json();
+      console.log(data);
+      if(response.status === 401){
+        toast.warning("Invalid Credentials",toastify)
+
+      }else if(response.status === 404){
+        toast.warning("User not found",toastify)
+
+      }
+      if(response.status===200){
+         toast.success("Login Successful",toastify)
+await history.push('/home');
+window.localStorage.setItem('access-token',data.token)
+window.localStorage.setItem('userid',data.userID)
+window.localStorage.setItem('user',data.username)
+      }
+      setValues({
+        email:"",
+        password:""
+      })
+
+    } catch (error) {
+      console.log(error.message);
+      toast.error("Error Found on Login",toastify)
+
+    }
+  }
   return (
-    <Container>
+    <div>
+ <Container>
       <ArcArea>
         <Logo>
           <img className="logo" src={BrandLogo} alt="Brand Logo" />
         </Logo>
         <Form>
           <input
-            defaultValue="vigneshwebdevelopr@gmail.com"
+          onChange={handleChange("email")}
+          name="email"
+          value={email}
             type="email"
-            placeholder="username"
+            placeholder="email"
           />
           <input
-            defaultValue="password@123"
+            onChange={handleChange("password")}
+          name="password"
+          value={password}
             type="password"
             placeholder="password"
           />
-          <button><span style={{fontSize:'larger',fontWeight:'bold', color: '#252525'}}>Login</span></button>
+          <button onClick={LoginUser}><span style={{fontSize:'larger',fontWeight:'bold', color: '#252525'}}>Login</span></button>
 <h5 style={{textAlign:'center'}}>          By continuing, you agree to TownBazzar's Conditions of Use and Privacy Notice.
 </h5>
         </Form>
@@ -30,6 +101,9 @@ function Login() {
         <p className="createnewaccount" onClick={() => history.push("/register")}>create a new account</p>
       </ArcArea>
     </Container>
+    <ToastContainer />
+    </div>
+   
   );
 }
 

@@ -7,31 +7,23 @@ import Card from '../components/Card'
 
 function Home() {
   return (
-    <MainHome>
 
 <Base>
+<MainHome>
+
 
 <Banner />
 <Division>Welcome to Town Bazzar     </Division>
 
-<Main>
+<Cards>
 
-<SubMain><Card /></SubMain>
-<SubMain><Card /></SubMain>
-<SubMain><Card /></SubMain>
-<SubMain><Card /></SubMain>
-<SubMain><Card /></SubMain>
-<SubMain><Card /></SubMain>
-<SubMain><Card /></SubMain>
-<SubMain><Card /></SubMain>
-<SubMain><Card /></SubMain>
-<SubMain><Card /></SubMain>
-<SubMain><Card /></SubMain>
+<Card />
 
-</Main>
+
+</Cards>
+</MainHome>
 
 </Base>
-    </MainHome>
    
   )
 }
@@ -39,6 +31,8 @@ function Home() {
 export default Home
 const MainHome = styled.div`
   width: 100%;
+  position: relative;
+  background-image: linear-gradient(to bottom, #F4E2CC, #ffffff);
 `
 const Division = styled.div`
 position: relative;
@@ -55,35 +49,46 @@ font-size: x-large;
 font-weight: bold;
 }
 `
-const Main = styled.div`
-position: relative;
 
-  border: 2px solid black;
-  margin: 1rem;
+const Cards = styled.div`
+  position: relative;
+  text-align: center;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
+  flex-direction: column !important;
+  margin: 0 auto !important;
+
   
-  @media only screen and (max-width: 768px) {
-    position: relative;
-
-border: 2px solid black;
-margin: 1rem;
-justify-content: start;
-display: flex;
-flex-wrap: wrap;
-justify-content: space-evenly;
-}
-
+ 
 `
-const SubMain = styled.div`
-   flex-basis: calc(30% - 20px); /* Adjust the percentage and subtract any margin/padding between cards */
-  margin-bottom: 20px;
-    @media only screen and (max-width: 768px) {
-      flex-basis: calc(20% - 20px); /* Adjust the percentage and subtract any margin/padding between cards */
+// const Main = styled.div`
+// position: relative;
+
+//   border: 2px solid black;
+//   margin: 1rem;
+//   display: flex;
+//   flex-wrap: wrap;
+//   /* justify-content: space-evenly; */
+  
+//   @media only screen and (max-width: 768px) {
+//     position: relative;
+
+// border: 2px solid black;
+// margin: 1rem;
+// justify-content: start;
+// display: flex;
+// flex-wrap: wrap;
+// justify-content: space-evenly;
+// }
+
+// `
+// const SubMain = styled.div`
+//    flex-basis: calc(30% - 20px); /* Adjust the percentage and subtract any margin/padding between cards */
+//   margin-bottom: 20px;
+//     @media only screen and (max-width: 768px) {
+//       flex-basis: calc(20% - 20px); /* Adjust the percentage and subtract any margin/padding between cards */
 
  
 
-}
-`
+// }
+// `
 

@@ -22,7 +22,7 @@ function Media() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("http://www.localhost:4000/products", {
+        const response = await fetch("https://townbazzar.vercel.app/products", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

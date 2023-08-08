@@ -54,7 +54,7 @@ const addUser = async() =>{
       username,
       password
     }
-    const response = await fetch('http://www.localhost:4000/users/add',{
+    const response = await fetch('https://townbazzar.vercel.app/users/add',{
       method:'POST',
       body:JSON.stringify(newData),
       headers:{

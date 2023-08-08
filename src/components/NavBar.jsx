@@ -1,5 +1,7 @@
 import React from 'react';
 import { styled, alpha } from '@mui/material/styles';
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
+
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -58,6 +60,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function NavBar() {
+  const history = useHistory()
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -124,7 +127,7 @@ export default function NavBar() {
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={0} color="error">
-            <ShoppingCart />
+            <ShoppingCart  />
           </Badge>
         </IconButton>
         <p>Cart</p>
@@ -158,10 +161,10 @@ export default function NavBar() {
 
   return (
     <div >
-<Box sx={{ flexGrow: 1,width:'100%' }}>
-      <AppBar sx={{bgcolor:'#131921'}} position="static">
+<Box sx={{ flexGrow: 1,width:'100%',marginBottom:'60px' }}>
+      <AppBar sx={{bgcolor:'#131921'}} position="fixed">
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             size="large"
             edge="start"
             color="inherit"
@@ -169,7 +172,7 @@ export default function NavBar() {
             sx={{ mr: 2 }}
           >
             <MenuIcon />
-          </IconButton>
+          </IconButton> */}
           <Typography
             variant="h6"
             noWrap
@@ -195,6 +198,7 @@ export default function NavBar() {
               </Badge>
             </IconButton>
             <IconButton
+            onClick={()=>history.push('/cart')}
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"

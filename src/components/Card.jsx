@@ -8,14 +8,18 @@ import {
   Skeleton,
   Typography,
   Button,
-  ThemeProvider,
-  createTheme,
+
 } from "@mui/material";
 import { styled } from "styled-components";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../Reducer/CartReducer";
 
-const theme = createTheme();
+
+
 
 function Media() {
+  const dispatch = useDispatch();
+
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -74,7 +78,7 @@ function Media() {
                   <StyledButton className="buybtn" size="small">
                     Buy
                   </StyledButton>
-                  <StyledButton className="cartbtn" size="small">
+                  <StyledButton onClick={() => {dispatch(addToCart(item));alert('Products Added Successfully')}} className="cartbtn" size="small">
                     Add to Cart
                   </StyledButton>
                 </CardActions>

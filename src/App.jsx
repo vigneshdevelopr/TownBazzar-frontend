@@ -7,6 +7,7 @@ import Loading from './components/Loading'
 import Home from './Pages/Home'
 import Dummy from './Pages/Dummy'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom'
+import CartPage from './Pages/Cart'
 
 function App() {
   const history = useHistory();
@@ -34,8 +35,8 @@ if(!localStorageToken){
         <Route path='/home'>
           <Home />
         </Route>
-        <Route path='/dummy'>
-          <Dummy />
+        <Route path='/cart'>
+          <CartPage />
         </Route>
     </Switch>
     </Container>

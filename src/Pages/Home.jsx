@@ -4,14 +4,13 @@ import Base from "../components/Base";
 import Banner from "../components/Banner";
 import { styled } from "styled-components";
 import Card from "../components/Card";
-import { useDispatch, useSelector } from "react-redux";
-import { add, remove } from "../Reducer/CartReducer";
-import { Button, Skeleton } from "@mui/material";
+// import { useDispatch, useSelector } from "react-redux";
+// import { add, remove } from "../Reducer/CartReducer";
+// import { Button, Skeleton } from "@mui/material";
 
 function Home() {
-  const carts = useSelector((state)=>state.cart.value);
-  console.error((err)=>err.message);
-  const dispatch = useDispatch()
+  // const carts = useSelector((state)=>state.cart.value);
+  // const dispatch = useDispatch()
   return (
     <Base>
       <MainHome>

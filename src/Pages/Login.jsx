@@ -4,6 +4,11 @@ import BrandLogo from "../assets/brandlogo.png";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import { ToastContainer,toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+const LoadingSpinner = () => (
+  <SpinnerContainer>
+    <Spinner />
+  </SpinnerContainer>
+);
 function Login() {
   const toastify = {
     position: "bottom-right",
@@ -23,6 +28,7 @@ function Login() {
     email,
     password
   }=values;
+  const[loading,setLoading]=useState(false)
   const history = useHistory();
 //handleChange:
 const handleChange = (name)=>(event)=>{
@@ -37,6 +43,7 @@ email,
 password
     }
     try {
+      setLoading(true);
       const response = await fetch("http://www.localhost:4000/signin",{
         method:"POST",
         body: JSON.stringify(newData),
@@ -69,13 +76,17 @@ window.localStorage.setItem('user',data.username)
       console.log(error.message);
       toast.error("Error Found on Login",toastify)
 
+    } finally{
+      setLoading(false);
     }
   }
   return (
     <div>
  <Container>
       <ArcArea>
-        <Logo>
+        {loading?(<LoadingSpinner />):(
+          <>
+          <Logo>
           <img className="logo" src={BrandLogo} alt="Brand Logo" />
         </Logo>
         <Form>
@@ -99,6 +110,9 @@ window.localStorage.setItem('user',data.username)
         </Form>
         <h5 style={{ textAlign: "center" }}>Don't Have an account ?</h5>
         <p className="createnewaccount" onClick={() => history.push("/register")}>create a new account</p>
+        </>
+        )}
+        
       </ArcArea>
     </Container>
     <ToastContainer />
@@ -200,5 +214,25 @@ const ArcArea = styled.div`
     border-radius: 9px;
     height:3rem;
     
+  }
+`;
+const SpinnerContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;
+
+const Spinner = styled.div`
+  border: 5px solid rgba(0, 0, 0, 0.1);
+  border-top: 5px solid #fff;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 `;

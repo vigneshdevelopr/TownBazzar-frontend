@@ -1,129 +1,129 @@
-import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
-import { styled } from 'styled-components';
+import React, { useEffect, useState } from "react";
+import {
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Grid,
+  Skeleton,
+  Typography,
+  Button,
+  ThemeProvider,
+  createTheme,
+} from "@mui/material";
+import { styled } from "styled-components";
 
-function Cards() {
-    const CardClickDemo = () =>{
-        alert('Hey Thanks for showing Intrest on my Product, Go to cart to checkout')
-    }
+const theme = createTheme();
 
-const[data, setData]= useState([]);
+function Media() {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-useEffect(()=>{
-  const products = async() =>{
-    const response = await fetch('http://www.localhost:4000/products',{
-      method: 'GET',
-      body: JSON.stringify(),
-      headers:{
-        'Content-Type':'application/json'
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch("http://www.localhost:4000/products", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const prodData = await response.json();
+        console.log(prodData);
+        setData(prodData);
+      } catch (error) {
+        console.log(error.message);
+      } finally {
+        setLoading(false);
       }
-    })
-    const ProdData = await response.json();
-    console.log(ProdData);
-    setData(ProdData);
-    
-    }
-    products();
-},[])
-console.log(data);
-
+    };
+    fetchProducts();
+  }, []);
 
   return (
-//     <div>
-
-// {data.map((val,idx)=>(
-//   <div key={val._id}>
-//         <img src={val.image} />
-//         <div>
-//        {val.description}
-
-//         </div>
-//         <div>
-//         <Button onClick={CardClickDemo} style={{display:'flex',fontWeight:'bold',backgroundColor:'#F7CA00',color:'#252525',width:'fit-content'}} variant='contained'>Buy</Button>
-//         <Button onClick={CardClickDemo} style={{display:'flex',backgroundColor:'#ff0b0b',color:'#ffffff',fontWeight:'bold',width:'fit-content'}} variant='contained'>Add to Cart</Button>
-//         </div>
-   
-
-
-//     </div>
-// ))}
-
-
-//     </div>
-<MainCard>
-  {data.map((val,idx)=>(
-    <Card sx={{ maxWidth: 250,backgroundColor:'whitesmoke' }}>
-      <CardMedia
-        component="img"
-        alt="green iguana"
-        height="240"
-        sx={{width:"fit-content",display:'flex',margin:'0 auto'}}
-        image={val.image}
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {val.title}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <BTN>
-        <Button className='buybtn'  size="small">Buy</Button>
-        <Button className='cartbtn'  size="small">Add to Cart</Button>
-        </BTN>
-       
-      </CardActions>
-    </Card>
-  ))}
-</MainCard>
-
-    
-  )
+    <Grid container spacing={3}>
+      {loading || data.length === 0
+        ? Array.from(new Array(8)).map((_, index) => (
+            <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
+              <Skeleton variant="rectangular" width="100%" height={320} />
+            </Grid>
+          ))
+        : data.map((item, index) => (
+            <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
+              <StyledCard>
+                <CardMedia
+                  component="img"
+                  alt="product"
+                  height="230"
+                  style={{width:'200px',margin:'0 auto'}}
+                  image={item.image}
+                  
+                />
+                <CardContent>
+                  <Typography variant="h6" component="div">
+                    {item.title}
+                  </Typography>
+                  <Typography variant="body2" style={{color:'#252525',fontWeight:'bold',fontSize:'large'}}>
+                   PRICE: Rs:{item.price}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                   Rating: {item.rating[0].rate}/5
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <StyledButton className="buybtn" size="small">
+                    Buy
+                  </StyledButton>
+                  <StyledButton className="cartbtn" size="small">
+                    Add to Cart
+                  </StyledButton>
+                </CardActions>
+              </StyledCard>
+            </Grid>
+          ))}
+    </Grid>
+  );
 }
 
-export default Cards
-
-const MainCard = styled.div`
-display: grid;
-
-grid-template-columns: repeat(auto-fit, minmax(295px, 2rem));
-justify-content: space-evenly;
-row-gap: 1cm;
-
-.buybtn{
-  background-color: #FA8900;
-  color: #252525;
-  font-weight: bold;
-  &:hover{
-    background-color: #FA8900;
-  }
-}
-.cartbtn{
-  background-color: #F7CA00;
-  color: #252525;
-  font-weight: bold;
-  &:hover{
-    background-color: #F7CA00;
-  }
+function Cards() {
+  return (
+    <Container>
+        <Media />
+    </Container>
+  );
 }
 
-@media only screen and (max-width:765px) {
-  display: grid;
-grid-template-columns: repeat(2, minmax(50%, 2rem));
-gap: 15px;
-.cartbtn{
-text-align: start;
-}
+export default Cards;
 
-}
-`
-
-const BTN = styled.div`
+const Container = styled.div`
   display: flex;
-  gap: 1rem;
-  margin: 0 auto;
+  justify-content: center;
+width: 100% !important;
+`;
 
-`
+const StyledCard = styled(Card)`
+background-color: whitesmoke !important;
+  height: 100%;
+  max-width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0 auto;
+  -webkit-box-shadow: 4px 17px 18px -2px rgba(0,0,0,0.68) !important;
+-moz-box-shadow: 4px 17px 18px -2px rgba(0,0,0,0.68) !important;
+box-shadow: 4px 17px 18px -2px rgba(0,0,0,0.68) !important;
+
+`;
+
+const StyledButton = styled(Button)`
+display: flex !important;
+margin: 0 auto !important;
+  background-color: #252525 !important;
+  color: #ffffff !important;
+  font-weight: bold;
+  &:hover {
+    background-color: whitesmoke !important;
+    color: #252525 !important;
+    cursor: pointer;
+  }
+`;

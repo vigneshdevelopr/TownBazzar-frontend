@@ -1,94 +1,70 @@
-import React from 'react'
+import React from "react";
 
-import Base from '../components/Base'
-import Banner from '../components/Banner'
-import { styled } from 'styled-components'
-import Card from '../components/Card'
+import Base from "../components/Base";
+import Banner from "../components/Banner";
+import { styled } from "styled-components";
+import Card from "../components/Card";
+import { useDispatch, useSelector } from "react-redux";
+import { add, remove } from "../Reducer/CartReducer";
+import { Button, Skeleton } from "@mui/material";
 
 function Home() {
+  const carts = useSelector((state)=>state.cart.value);
+  console.error((err)=>err.message);
+  const dispatch = useDispatch()
   return (
+    <Base>
+      <MainHome>
+        <Banner />
+        <Division>Welcome to Town Bazzar </Division>
 
-<Base>
-<MainHome>
+        <Cards>
+          <Card />
+        </Cards>
 
+{/* <div>
+  <div>
+    Cart Value: {carts}
+  </div>
+  <Button onClick={()=>dispatch(add())}>Increase</Button>
+  <Button onClick={()=>dispatch(remove())}>Decrease</Button>
+</div> */}
 
-<Banner />
-<Division>Welcome to Town Bazzar     </Division>
-
-<Cards>
-
-<Card />
-
-
-</Cards>
-</MainHome>
-
-</Base>
-   
-  )
+      </MainHome>
+    </Base>
+  );
 }
 
-export default Home
+export default Home;
 const MainHome = styled.div`
-  width: 100%;
   position: relative;
-  background-image: linear-gradient(to bottom, #F4E2CC, #ffffff);
-`
+  width: 100% !important;
+  background-image: linear-gradient(to bottom, #f4e2cc, #ffffff) !important;
+`;
 const Division = styled.div`
-position: relative;
-padding-top: 8cm;
-text-align: center;
-font-size: x-large;
-font-weight: bold;
-
-@media only screen and (max-width: 768px) {
   position: relative;
-padding-top: 3cm;
-text-align: center;
-font-size: x-large;
-font-weight: bold;
-}
-`
+  padding-top: 8cm;
+  text-align: center;
+  font-size: x-large;
+  font-weight: bold;
+  margin-bottom: 1cm;
+
+  @media only screen and (max-width: 768px) {
+    position: relative;
+    padding-top: 3cm;
+    text-align: center;
+    font-size: x-large;
+    font-weight: bold;
+  }
+`;
+
 
 const Cards = styled.div`
   position: relative;
   text-align: center;
   display: flex;
-  flex-direction: column !important;
-  margin: 0 auto !important;
-
-  
- 
-`
-// const Main = styled.div`
-// position: relative;
-
-//   border: 2px solid black;
-//   margin: 1rem;
-//   display: flex;
-//   flex-wrap: wrap;
-//   /* justify-content: space-evenly; */
-  
-//   @media only screen and (max-width: 768px) {
-//     position: relative;
-
-// border: 2px solid black;
-// margin: 1rem;
-// justify-content: start;
-// display: flex;
-// flex-wrap: wrap;
-// justify-content: space-evenly;
-// }
-
-// `
-// const SubMain = styled.div`
-//    flex-basis: calc(30% - 20px); /* Adjust the percentage and subtract any margin/padding between cards */
-//   margin-bottom: 20px;
-//     @media only screen and (max-width: 768px) {
-//       flex-basis: calc(20% - 20px); /* Adjust the percentage and subtract any margin/padding between cards */
-
- 
-
-// }
-// `
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
 
